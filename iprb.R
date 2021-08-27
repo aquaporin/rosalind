@@ -8,9 +8,9 @@
 # and n specified.
 
 # Set variables and the total number of organisms
-k <- 2
-m <- 3
-n <- 2
+k <- 26
+m <- 30
+n <- 23
 total_pop <- sum(k,m,n)
 
 # Create matrix filled with zeroes
@@ -27,22 +27,30 @@ rownames(matx) <- pop
 colnames(matx) <- pop
 
 # Create probability function. Calculates P(recessive).
-p_recessive <- function(a1, a2){
-  if(a1 == "k") return(0)
-  if(a2 == "k") return(0)
+p_recessive <- function(a1, a2) {
+  # Either parent has is homozygous dominant
+  if(a1 == "k" | a2 == "k") return(0)
+  # Both parents heterozygous
   if(a1 == "m" && a2 == "m") return(0.25)
-  if(a1 == "m" && a2 == "n") return(0.75)
-  if(a1 == "n" && a2 == "m") return(0.75)
+  # One parent heterozygous and other homozygous recessive
+  if(a1 == "m" && a2 == "n") return(0.5)
+  if(a1 == "n" && a2 == "m") return(0.5)
+  # Both parents homozygous recessive
   if(a1 == "n" && a2 == "n") return(1)
 }
 
 # Fill in matrix
-# Calculate answer
-# Turn everything into a function
-
-empty_vec <- vector()
-
-for(i in matx){
-  empty_vec <- empty_vec + p_recessive(matx[i, ], matx[ ,i])
+for (r in 1:nrow(matx)) {
+  for (c in 1:ncol(matx)) {
+    if (r == c) {
+      next 
+    }
+    p1 <- rownames(matx)[r]
+    p2 <- colnames(matx)[c]
+    matx[r, c] <- p_recessive(p1, p2)
+  }
 }
 
+# Calculate answer
+p_dominant <- 1 - (sum(matx) / (total_pop^2 - total_pop))
+print(p_dominant)
