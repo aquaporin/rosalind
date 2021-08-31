@@ -8,9 +8,9 @@
 # and n specified.
 
 # Set variables and the total number of organisms
-k <- 26
-m <- 30
-n <- 23
+k <- 2
+m <- 2
+n <- 2
 total_pop <- sum(k,m,n)
 
 # Create matrix filled with zeroes
