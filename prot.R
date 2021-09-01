@@ -1,5 +1,9 @@
 # Translating RNA into protein 
-rna_string <- "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA"
+
+
+rna_string <- read.delim(file = "rosalind_prot.txt", header = FALSE)
+rna_string <- rna_string$V1[1]
+
 input <- "UUU F      CUU L      AUU I      GUU V
           UUC F      CUC L      AUC I      GUC V
           UUA L      CUA L      AUA I      GUA V
